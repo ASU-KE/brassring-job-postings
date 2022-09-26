@@ -1,0 +1,38 @@
+<?php
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function brassring_job_postings_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.brassring_job_postings':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The Brassring Job Postings module allows the ability to configure one or more job postings based on departments added to filter by.'). '</p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function brassring_job_postings_theme($existing, $type, $theme, $path) {
+  return [
+    'brassring_job_postings' => [
+      'template' => 'brassring-job-postings',
+      'variables' => [
+        'posting_title' => NULL,
+        'posting_callout' => NULL,
+        'staff_postings' => NULL,
+        'student_postings' => NULL,
+      ],
+      '#attached' => [
+        'library' => [
+          'brassring_job_postings/brassring-job-postings'
+        ]
+      ]
+    ],
+  ];
+}

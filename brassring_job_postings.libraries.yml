@@ -1,0 +1,8 @@
+brassring-job-postings:
+  css:
+    base:
+      css/brassring_job_postings.css: {}
+  js:
+    js/brassring_job_postings.js: {}
+  dependencies:
+    - core/drupal

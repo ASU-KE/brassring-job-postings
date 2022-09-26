@@ -1,0 +1,16 @@
+{
+    "name": "asu/brassring_job_postings",
+    "type": "drupal-module",
+    "description": "Ability to configure one or more job postings based on departments added to filter by.",
+    "keywords": ["Drupal"],
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "KE Web Services Arizona State University",
+            "email": "kewebservices@asu.edu"
+        }
+    ],
+    "homepage": "https://github.com/ASU-KE/brassring_job_postings",
+    "minimum-stability": "dev",
+    "require": { }
+}

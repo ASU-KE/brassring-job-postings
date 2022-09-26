@@ -1,0 +1,6 @@
+name: "Brassring Job Postings"
+description: "Brassring Job Postings module for pulling in faculty and student job postings from the Brassring API"
+package: ASU
+type: module
+version: 1.0
+core: 8.x

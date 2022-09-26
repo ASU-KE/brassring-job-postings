@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * Default theme for Brassring Job Postings.
+ */
+#}
+
+{{ attach_library('brassring_job_postings/brassring-job-postings') }}
+
+<div id="brassringJobPostings" class="jobTypeSelect">
+  <h3>{{ posting_title }}</h3>
+
+  <p>{{ posting_callout }}</p>
+
+  <form id="jobTypeSelect">
+    <label for="openings">Job type</label>
+
+    <select form="openingsform" id="openings" name="openings">
+      <option value="filter">Filter by job type</option>
+      <option value="staff">Staff</option>
+      <option value="student">Student jobs</option>
+    </select>
+
+    <input type="submit" value="Apply" />
+  </form>
+
+  <div id="jobPostings"></div>
+
+  <div class="staffResponse" style="display: none">{{ staff_postings }}</div>
+  <div class="studentResponse" style="display: none">{{ student_postings }}</div>
+</div>
+
+<p>&nbsp;</p>
