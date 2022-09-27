@@ -12,7 +12,7 @@ jQuery(document).ready(function ($jq) {
       getOpportunities($jq(".staffResponse").html());
     } else if ($jq("select").first().val() == "student") {
       $jq(".loading-feature").show();
-      getOpportunities($jq(".staffResponse").html());
+      getOpportunities($jq(".studentResponse").html());
       console.log("Selected student");
     }
   });
