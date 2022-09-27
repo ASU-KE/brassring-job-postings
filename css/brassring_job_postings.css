@@ -40,7 +40,7 @@ form#jobTypeSelect label {
 }
 
 form#jobTypeSelect {
-  padding-bottom: 60px;
+  padding-bottom: 80px;
 }
 
 form#jobTypeSelect #openings {
@@ -59,7 +59,7 @@ form#jobTypeSelect #openings {
   /* Mozilla */
   -ms-appearance: none;
   /* Ie */
-  background-image: url(/sites/default/files/angle-down-solid.svg);
+  background-image: url(./images/angle-down-solid.svg);
   background-repeat: no-repeat;
   background-position: calc(100% - 17px) center;
   background-size: 20px;
@@ -80,10 +80,10 @@ form#jobTypeSelect input[type="submit"] {
   border: none;
 }
 
-form#jobPostings > div {
+#jobPostings > div {
   margin-bottom: 15px;
 }
 
-form#jobPostings > div:last-of-type {
+#jobPostings > div:last-of-type {
   margin-bottom: 40px;
 }
