@@ -24,10 +24,10 @@ class BrassringJobPostingsBlock extends BlockBase implements BlockPluginInterfac
   public function blockForm($form, FormStateInterface $form_state)
   {
     $form = parent::blockForm($form, $form_state);
-    $posting_title = $this->configuration['posting_title'];
-    $posting_callout = $this->configuration['posting_callout'];
-    $staff_depts = $this->configuration['staff_depts'];
-    $student_depts = $this->configuration['student_depts'];
+    $posting_title = isset($this->configuration['posting_title']) ? $this->configuration['posting_title'] : "";
+    $posting_callout = isset($this->configuration['posting_callout']) ? $this->configuration['posting_callout'] : "";
+    $staff_depts = isset($this->configuration['staff_depts']) ? $this->configuration['staff_depts'] : "";
+    $student_depts = isset($this->configuration['student_depts']) ? $this->configuration['student_depts'] : "";
 
     $form['posting_title'] = [
       '#type' => 'textfield',
