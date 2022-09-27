@@ -4,7 +4,6 @@ CONTENTS OF THIS FILE
  * Introduction
  * Installation
  * Requirements
- * Recommended Modules
  * Configuration
  * Maintainers
 
