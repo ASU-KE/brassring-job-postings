@@ -3,4 +3,4 @@ description: "Brassring Job Postings module for pulling in faculty and student j
 package: ASU
 type: module
 version: 1.0
-core: 8.x
+core_version_requirement: ^8 || ^9
