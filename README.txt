@@ -30,11 +30,11 @@ This module requires the following inside of your root composer.json file.
  * Add the following code snippet to tell Composer where to look for asu/brassring_job_postings.
   "repositories": [
       {
-          "type": "composer",
+          "type": "vcs",
           "url": "https://github.com/ASU-KE/brassring-job-postings"
       }
   ],
- * Run, 'composer require asu/brassring_job_postings'
+ * Run, 'composer require asu/brassring_job_postings:dev-main'
 
 
 CONFIGURATION
