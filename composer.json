@@ -10,7 +10,7 @@
             "email": "kewebservices@asu.edu"
         }
     ],
-    "homepage": "https://github.com/ASU-KE/brassring_job_postings",
+    "homepage": "https://github.com/ASU-KE/brassring-job-postings",
     "minimum-stability": "dev",
     "require": { }
 }

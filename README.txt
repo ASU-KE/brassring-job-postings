@@ -25,26 +25,16 @@ INSTALLATION
 REQUIREMENTS
 ------------
 
-This module is private and requires the following inside of your root composer.json file along
-with requesting access to the repository.
+This module requires the following inside of your root composer.json file.
 
  * Add the following code snippet to tell Composer where to look for asu/brassring_job_postings.
   "repositories": [
       {
-          "type": "vcs",
-          "url": "https://github.com/ASU-KE/brassring_job_postings"
+          "type": "composer",
+          "url": "https://github.com/ASU-KE/brassring-job-postings"
       }
   ],
- * You will be required to provide a GITHUB authentication token with access to module.
- * You can request access to the private repository by emailing RTS Helpdesk via email which
-   will auto-generate a ticket.
-   Here is an example email:
-   - To: rtshelp@asu.edu
-   - Subject: Request access to github repository
-   - Body: Hi RTS,
-           Please route this request to KE Web Services team.
-           I would like to request access to the GITHUB repository for the Drupal 8 Brassring
-           Job Postings module. My GITHUB handle/email is "github_handle_or_email".
+ * Run, 'composer require asu/brassring_job_postings'
 
 
 CONFIGURATION
