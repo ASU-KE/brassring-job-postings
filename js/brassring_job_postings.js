@@ -3,22 +3,67 @@ var $jq = jQuery.noConflict();
 jQuery(document).ready(function ($jq) {
   $jq("#jobPostings").empty();
 
+  // Clean up and replace XML being stored in staff and student divs
+  $jq(".staffResponse").html(xmlCleanup($jq(".staffResponse").html()));
+  $jq(".studentResponse").html(xmlCleanup($jq(".studentResponse").html()));
+
+  // Update and display departments filter based on selected job type
+  $jq("select#openings").change(function () {
+    $jq(".deptfilter").show();
+    if ($jq(this).val() == "staff") {
+      $jq("#departments").html($jq(".staffResponse > .deptListData").html());
+      return true;
+    }
+    $jq("#departments").html($jq(".studentResponse > .deptListData").html());
+  });
+
   // Career job type dropdown trigger
   $jq("form#jobTypeSelect").submit(function (event) {
     event.preventDefault();
     $jq("#jobPostings").empty();
     if ($jq("select").first().val() == "staff") {
-      $jq(".loading-feature").show();
-      getOpportunities($jq(".staffResponse").html());
+      $jq("#jobPostings").append(
+        $jq(".staffResponse > .jobPostingsData").html()
+      );
+      $jq("#jobPostings").hide();
+      $jq("#jobPostings").slideDown(750);
+      if (
+        $jq("select#departments").first().val() == "filter" ||
+        $jq("select#departments").first().val() == undefined
+      ) {
+        return true;
+      }
+      $jq("#jobPostings").hide();
+      keepOnlyDeptPostings($jq("select#departments").first().val());
     } else if ($jq("select").first().val() == "student") {
-      $jq(".loading-feature").show();
-      getOpportunities($jq(".studentResponse").html());
+      $jq("#jobPostings").append(
+        $jq(".studentResponse > .jobPostingsData").html()
+      );
+      $jq("#jobPostings").hide();
+      $jq("#jobPostings").slideDown(750);
+      if (
+        $jq("select#departments").first().val() == "filter" ||
+        $jq("select#departments").first().val() == undefined
+      ) {
+        return true;
+      }
+      $jq("#jobPostings").hide();
+      keepOnlyDeptPostings($jq("select#departments").first().val());
     }
   });
 
-  // Clean the string that is returned from Brassring, turn into XML and return only data needed.
-  function getOpportunities(xmlResponse) {
-    newContent = xmlResponse;
+  function keepOnlyDeptPostings(dept) {
+    $jq("#jobPostings .jobPost").each(function () {
+      if ($jq(this).find(".deptValue").text() != dept) {
+        $jq(this).css("display", "none");
+      }
+    });
+    $jq("#jobPostings").slideDown(750);
+  }
+
+  // Filter XML data from BrassRing and return ready for use by Drupal widget.
+  function xmlCleanup(dataSource) {
+    newContent = dataSource;
     newContent = newContent.replaceAll("&lt;", "<");
     newContent = newContent.replaceAll("&gt;", ">");
     newContent = newContent.replaceAll("&amp;", "&");
@@ -53,15 +98,19 @@ jQuery(document).ready(function ($jq) {
 
     list.sort();
 
-    var jobPostings = "";
-
+    let deptsListArray = [];
+    let jobPostings = "";
+    let deptsList = "<option value='filter'>Filter by department</option>";
     let today = getTodayDate();
 
     $jq(list).each(function (index) {
       if (list[index][2].startsWith(today)) {
         return true;
       }
-      jobPostings += "<div>";
+
+      var deptValue = list[index][3].replaceAll(" ", "_").toLowerCase();
+
+      jobPostings += "<div class='jobPost'>";
       jobPostings +=
         "<div><a target='_blank' href='" +
         list[index][1] +
@@ -72,16 +121,37 @@ jQuery(document).ready(function ($jq) {
         "<div><strong>Department:</strong> " + list[index][3] + "</div>";
       jobPostings +=
         "<div><strong>Close date:</strong> " + list[index][2] + "</div>";
+      jobPostings +=
+        "<div class='deptValue' style='display: none'>" + deptValue + "</div>";
       jobPostings += "</div>";
+
+      if (deptsListArray.includes(list[index][3])) {
+        return true;
+      }
+
+      deptsListArray.push(list[index][3]);
     });
 
-    $jq("#jobPostings").append(jobPostings);
+    deptsListArray.sort();
 
-    $jq("#jobPostings").hide();
+    $jq(deptsListArray).each(function (index) {
+      var deptValue = deptsListArray[index].replaceAll(" ", "_").toLowerCase();
+      deptsList +=
+        "<option value=" +
+        deptValue +
+        ">" +
+        deptsListArray[index] +
+        "</option>";
+    });
 
-    $jq(".loading-feature").hide();
-
-    $jq("#jobPostings").slideDown(750);
+    return (
+      "<div class='jobPostingsData'>" +
+      jobPostings +
+      "</div>" +
+      "<div class='deptListData'>" +
+      deptsList +
+      "</div>"
+    );
   }
 
   // Return today's date in d-F (e.g. 06-April) format.
