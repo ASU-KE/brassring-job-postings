@@ -13,13 +13,11 @@ jQuery(document).ready(function ($jq) {
     } else if ($jq("select").first().val() == "student") {
       $jq(".loading-feature").show();
       getOpportunities($jq(".studentResponse").html());
-      console.log("Selected student");
     }
   });
 
   // Clean the string that is returned from Brassring, turn into XML and return only data needed.
   function getOpportunities(xmlResponse) {
-    console.log(xmlResponse);
     newContent = xmlResponse;
     newContent = newContent.replaceAll("&lt;", "<");
     newContent = newContent.replaceAll("&gt;", ">");
@@ -32,8 +30,6 @@ jQuery(document).ready(function ($jq) {
     newContent = newContent.replaceAll("&lt;", "<");
     newContent = newContent.replaceAll("&gt;", ">");
     newContent = newContent.replaceAll("&amp;", "&");
-    console.log("sonme processing");
-    console.log(newContent);
 
     var xml = newContent,
       xmlDoc = $jq.parseXML(xml),
@@ -78,7 +74,6 @@ jQuery(document).ready(function ($jq) {
         "<div><strong>Close date:</strong> " + list[index][2] + "</div>";
       jobPostings += "</div>";
     });
-    console.log("jobPostings" + jobPostings);
 
     $jq("#jobPostings").append(jobPostings);
 
