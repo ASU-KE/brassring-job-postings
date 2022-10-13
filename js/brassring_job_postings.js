@@ -9,6 +9,10 @@ jQuery(document).ready(function ($jq) {
 
   // Update and display departments filter based on selected job type
   $jq("select#openings").change(function () {
+    if ($jq(this).val() == "filter") {
+      $jq(".deptfilter").hide();
+      return true;
+    }
     $jq(".deptfilter").show();
     if ($jq(this).val() == "staff") {
       $jq("#departments").html($jq(".staffResponse > .deptListData").html());
