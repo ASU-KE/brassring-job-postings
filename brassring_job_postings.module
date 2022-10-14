@@ -27,6 +27,7 @@ function brassring_job_postings_theme($existing, $type, $theme, $path) {
         'posting_callout' => NULL,
         'staff_postings' => NULL,
         'student_postings' => NULL,
+        'dept_filter' => NULL,
       ],
       '#attached' => [
         'library' => [

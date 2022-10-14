@@ -21,6 +21,14 @@
       <option value="student">Student jobs</option>
     </select>
 
+    {% if dept_filter == true %}
+      <div class="deptfilter">
+        <select form="departmentsFilter" id="departments" name="departments">
+          <option value="filter">Filter by department</option>
+        </select>
+      </div>
+    {% endif %}
+
     <input type="submit" value="Apply" />
   </form>
 

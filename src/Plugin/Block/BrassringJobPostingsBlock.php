@@ -28,6 +28,7 @@ class BrassringJobPostingsBlock extends BlockBase implements BlockPluginInterfac
     $posting_callout = isset($this->configuration['posting_callout']) ? $this->configuration['posting_callout'] : "";
     $staff_depts = isset($this->configuration['staff_depts']) ? $this->configuration['staff_depts'] : "";
     $student_depts = isset($this->configuration['student_depts']) ? $this->configuration['student_depts'] : "";
+    $dept_filter = isset($this->configuration['dept_filter']) ? $this->configuration['dept_filter'] : "";
 
     $form['posting_title'] = [
       '#type' => 'textfield',
@@ -61,6 +62,14 @@ class BrassringJobPostingsBlock extends BlockBase implements BlockPluginInterfac
       '#required' => true
     ];
 
+    $form['dept_filter'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Would you like to enable the ability for users to filter jobs by department?'),
+      '#description' => $this->t('Check the box to enable department filtering.'),
+      '#default_value' => $dept_filter,
+      '#required' => false
+    ];
+
     return $form;
   }
 
@@ -76,6 +85,7 @@ class BrassringJobPostingsBlock extends BlockBase implements BlockPluginInterfac
     $this->configuration['posting_callout'] = $form_state->getValue('posting_callout');
     $this->configuration['staff_depts'] = $form_state->getValue('staff_depts');
     $this->configuration['student_depts'] = $form_state->getValue('student_depts');
+    $this->configuration['dept_filter'] = $form_state->getValue('dept_filter');
 
   }
 
@@ -124,6 +134,7 @@ class BrassringJobPostingsBlock extends BlockBase implements BlockPluginInterfac
       '#posting_callout' => $config['posting_callout'],
       '#staff_postings' => $staff_postings,
       '#student_postings' => $student_postings,
+      '#dept_filter' => $config['dept_filter'],
     ];
 
     return $build;
