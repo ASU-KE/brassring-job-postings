@@ -110,13 +110,14 @@ class BrassringJobPostingsBlock extends BlockBase implements BlockPluginInterfac
             ],
           ]
         );
+        return $response->getBody();
       }
       catch (\Exception $error) {
         $logger = \Drupal::logger('HTTP Client error');
         $logger->error($error->getMessage());
       }
 
-      return $response->getBody();
+      
 
     }
 
