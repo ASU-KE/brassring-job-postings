@@ -101,7 +101,7 @@ class BrassringJobPostingsBlock extends BlockBase implements BlockPluginInterfac
       $siteID = $staff ? "5494" : "5495";
 
       try {
-        $response = $client->request('POST', 'https://Importt.brassring.com/WebRouter/WebRouter.asmx/route',
+        $response = $client->request('POST', 'https://Import.brassring.com/WebRouter/WebRouter.asmx/route',
           [
             'verify' => false,
             'headers' => ['Content-Type' => 'application/x-www-form-urlencoded'],
