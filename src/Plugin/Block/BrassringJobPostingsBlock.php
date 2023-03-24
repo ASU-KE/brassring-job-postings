@@ -101,7 +101,7 @@ class BrassringJobPostingsBlock extends BlockBase implements BlockPluginInterfac
       $siteID = $staff ? "5494" : "5495";
 
       try {
-        $response = $client->request('POST', 'https://Import.brassring.com/WebRouter/WebRouter.asmx/route',
+        $response = $client->request('POST', 'https://Importt.brassring.com/WebRouter/WebRouter.asmx/route',
           [
             'verify' => false,
             'headers' => ['Content-Type' => 'application/x-www-form-urlencoded'],
@@ -115,17 +115,23 @@ class BrassringJobPostingsBlock extends BlockBase implements BlockPluginInterfac
       catch (\Exception $error) {
         $logger = \Drupal::logger('HTTP Client error');
         $logger->error($error->getMessage());
+        return null;
       }
-
-      
-
     }
 
     $config = $this->getConfiguration();
 
-    $staff_postings = getBrassringAPIData($config['staff_depts'], true);
+    if(getBrassringAPIData($config['staff_depts'], true) != null) {
+      $staff_postings = getBrassringAPIData($config['staff_depts'], true);
+    } else {
+      $staff_postings = 'error';
+    }
 
-    $student_postings = getBrassringAPIData($config['student_depts'], false);
+    if(getBrassringAPIData($config['student_depts'], false) != null) {
+      $student_postings = getBrassringAPIData($config['student_depts'], false);
+    } else {
+      $student_postings = 'error';
+    }
 
     $build = [];
 
