@@ -10,7 +10,8 @@
 <div id="brassringJobPostings" class="jobTypeSelect">
   <h3>{{ posting_title }}</h3>
 
-  <p>{{ posting_callout }}</p>
+
+  {{ posting_callout|replace({'"':'\''})|raw }}
 
   <form id="jobTypeSelect">
     <label for="openings">Job type</label>
@@ -29,7 +30,7 @@
       </div>
     {% endif %}
 
-    <input type="submit" value="Apply" />
+    <input type="submit" value="Search" />
   </form>
 
   <div id="jobPostings"></div>

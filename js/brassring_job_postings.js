@@ -97,6 +97,7 @@ jQuery(document).ready(function ($jq) {
         $jobLink = $xml.find("JobDetailLink"),
         $jobCloseDate = $xml.find('Question[Id="42261"]'),
         $jobDepartment = $xml.find('Question[Id="8318"]');
+        $jobId = $xml.find('Question[Id="8341"]');
 
       var list = [];
 
@@ -106,6 +107,7 @@ jQuery(document).ready(function ($jq) {
           $jobLink.eq(index).html(),
           $jobCloseDate.eq(index).html(),
           $jobDepartment.eq(index).html(),
+          $jobId.eq(index).html(),
         ];
         list.push(holder);
       });
@@ -135,6 +137,8 @@ jQuery(document).ready(function ($jq) {
           "<div><strong>Department:</strong> " + list[index][3] + "</div>";
         jobPostings +=
           "<div><strong>Close date:</strong> " + list[index][2] + "</div>";
+           jobPostings +=
+          "<div><strong>Job number:</strong> " + list[index][4] + "</div>";
         jobPostings +=
           "<div class='deptValue' style='display: none'>" + deptValue + "</div>";
         jobPostings += "</div>";

@@ -16,7 +16,8 @@ use GuzzleHttp\Client;
  *   category = @Translation("Brassring Job Postings"),
  * )
  */
-class BrassringJobPostingsBlock extends BlockBase implements BlockPluginInterface {
+class BrassringJobPostingsBlock extends BlockBase implements BlockPluginInterface
+{
 
   /**
    * {@inheritdoc}
@@ -39,7 +40,8 @@ class BrassringJobPostingsBlock extends BlockBase implements BlockPluginInterfac
     ];
 
     $form['posting_callout'] = [
-      '#type' => 'textfield',
+      '#type' => 'text_format',
+      '#format' => 'basic_html',
       '#title' => $this->t('Callout'),
       '#description' => $this->t('Add additional callout text.'),
       '#default_value' => $posting_callout,
@@ -82,26 +84,29 @@ class BrassringJobPostingsBlock extends BlockBase implements BlockPluginInterfac
     parent::blockSubmit($form, $form_state);
 
     $this->configuration['posting_title'] = $form_state->getValue('posting_title');
-    $this->configuration['posting_callout'] = $form_state->getValue('posting_callout');
+    $this->configuration['posting_callout'] = $form_state->getValue('posting_callout')['value'];
     $this->configuration['staff_depts'] = $form_state->getValue('staff_depts');
     $this->configuration['student_depts'] = $form_state->getValue('student_depts');
     $this->configuration['dept_filter'] = $form_state->getValue('dept_filter');
-
   }
 
   /**
    * {@inheritdoc}
    */
-  public function build() {
+  public function build()
+  {
 
-    function getBrassringAPIData($dept_list, $staff = false) {
+    function getBrassringAPIData($dept_list, $staff = false)
+    {
 
       $client = new Client();
 
       $siteID = $staff ? "5494" : "5495";
 
       try {
-        $response = $client->request('POST', 'https://Import.brassring.com/WebRouter/WebRouter.asmx/route',
+        $response = $client->request(
+          'POST',
+          'https://Import.brassring.com/WebRouter/WebRouter.asmx/route',
           [
             'verify' => false,
             'headers' => ['Content-Type' => 'application/x-www-form-urlencoded'],
@@ -111,8 +116,7 @@ class BrassringJobPostingsBlock extends BlockBase implements BlockPluginInterfac
           ]
         );
         return $response->getBody();
-      }
-      catch (\Exception $error) {
+      } catch (\Exception $error) {
         $logger = \Drupal::logger('HTTP Client error');
         $logger->error($error->getMessage());
         return null;
@@ -121,13 +125,13 @@ class BrassringJobPostingsBlock extends BlockBase implements BlockPluginInterfac
 
     $config = $this->getConfiguration();
 
-    if(getBrassringAPIData($config['staff_depts'], true) != null) {
+    if (getBrassringAPIData($config['staff_depts'], true) != null) {
       $staff_postings = getBrassringAPIData($config['staff_depts'], true);
     } else {
       $staff_postings = 'error';
     }
 
-    if(getBrassringAPIData($config['student_depts'], false) != null) {
+    if (getBrassringAPIData($config['student_depts'], false) != null) {
       $student_postings = getBrassringAPIData($config['student_depts'], false);
     } else {
       $student_postings = 'error';
@@ -145,14 +149,13 @@ class BrassringJobPostingsBlock extends BlockBase implements BlockPluginInterfac
     ];
 
     return $build;
-
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getCacheMaxAge() {
+  public function getCacheMaxAge()
+  {
     return 0;
   }
-
 }
